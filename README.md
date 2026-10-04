@@ -477,7 +477,7 @@ The project follows [Semantic Versioning](https://semver.org): `MAJOR.MINOR.PATC
 - The current version is the `APP_VERSION` constant in [`config.php`](config.php) (the only place
   where the number is written) and is shown at the bottom of the menu.
 - Every release is a git tag `vMAJOR.MINOR.PATCH` (e.g. `v1.0.0`), listed under
-  [Releases](https://github.com/fproperzi/rugby_state_machine/releases).
+  [Releases](https://github.com/fproperzi/rugby-state-machine/releases).
 - What changed in each version is in [`CHANGELOG.md`](CHANGELOG.md).
 - Export files carry their own format version (`version`, checked on import) and, for
   information, the `app_version` that produced them.
@@ -534,7 +534,7 @@ run the two tools above.
 
 ## License
 
-Copyright (C) 2026 the Rugby State Machine authors.
+Copyright (C) 2026 the RugbyAssistant.org authors.
 
 This program is free software: you can redistribute it and/or modify it under the terms of
 the GNU General Public License as published by the Free Software Foundation, either

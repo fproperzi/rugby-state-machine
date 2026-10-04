@@ -107,6 +107,12 @@ marcature, mauls, turnover, knock-on, kick-off recuperati, mappa dei calci)
 - `.htaccess` (root + `data/ src/ pages/ lang/ tools/`) per Apache; `router.php` replica
   le stesse regole per `php -S` (usato da `start-server.bat`). Pubblici solo
   `index.php`, `api/*.php`, `assets/*`.
+- Nome del progetto: **Rugby State Machine** (non "Rugby Tagger": l'utente ha un altro progetto
+  con quel nome). Repository: github.com/fproperzi/rugby-state-machine.
+- **Versioning**: SemVer, unica fonte `APP_VERSION` in `config.php`; modifiche in `CHANGELOG.md`
+  (sezione *Unreleased* da aggiornare a ogni modifica rilevante); tag `vX.Y.Z`. Regole
+  major/minor/patch e procedura di rilascio nella sezione Versioning del README.
+  Rinominare/togliere id di stati o azioni del grafo = MAJOR (rompe undo ed export esistenti).
 - Licenza **GPL-3.0-or-later** (scelta dell'utente, 2026-10-04): testo ufficiale in `LICENSE`,
   sezione "License/Licenza" in fondo ai due README.
 - `README.md` (inglese) e `README.it.md`: grafo completo e tabella delle profondità sono

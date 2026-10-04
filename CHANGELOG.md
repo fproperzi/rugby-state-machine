@@ -30,5 +30,5 @@ First public release.
 - Protections for Apache (`.htaccess`) and for PHP's built-in server (`router.php`).
 - README in English and Italian with Mermaid diagrams of the state graph.
 
-[Unreleased]: https://github.com/fproperzi/rugby_state_machine/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/fproperzi/rugby_state_machine/releases/tag/v1.0.0
+[Unreleased]: https://github.com/fproperzi/rugby-state-machine/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/fproperzi/rugby-state-machine/releases/tag/v1.0.0

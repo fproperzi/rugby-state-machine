@@ -494,7 +494,7 @@ Il progetto segue il [Semantic Versioning](https://semver.org/lang/it/): `MAJOR.
 - La versione corrente è la costante `APP_VERSION` in [`config.php`](config.php) (l'unico punto
   in cui il numero è scritto) e compare in fondo al menu.
 - Ogni rilascio è un tag git `vMAJOR.MINOR.PATCH` (es. `v1.0.0`), elencato nelle
-  [Releases](https://github.com/fproperzi/rugby_state_machine/releases).
+  [Releases](https://github.com/fproperzi/rugby-state-machine/releases).
 - Cosa cambia in ogni versione è in [`CHANGELOG.md`](CHANGELOG.md) (in inglese, come d'uso su GitHub).
 - I file di export hanno una propria versione di formato (`version`, verificata all'import) e,
   a titolo informativo, la `app_version` che li ha prodotti.
@@ -551,7 +551,7 @@ nuove etichette, poi lancia i due strumenti qui sopra.
 
 ## Licenza
 
-Copyright (C) 2026 gli autori di Rugby State Machine.
+Copyright (C) 2026 gli autori di RugbyAssistant.org.
 
 Questo programma è software libero: puoi ridistribuirlo e/o modificarlo secondo i termini
 della GNU General Public License pubblicata dalla Free Software Foundation, nella versione 3
