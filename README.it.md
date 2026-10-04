@@ -11,9 +11,11 @@ La logica di gioco segue le *Laws of the Game* di World Rugby, comprese le modif
 dal 1° luglio 2026. I commenti nel codice citano la regola di riferimento.
 
 - [Funzionalità](#funzionalità)
+- [Screenshot](#screenshot)
 - [Requisiti](#requisiti)
 - [Avvio](#avvio)
 - [Come si usa](#come-si-usa)
+- [Partita di esempio](#partita-di-esempio)
 - [Utenti, ruoli e password](#utenti-ruoli-e-password)
 - [Come funziona la logica di gioco](#come-funziona-la-logica-di-gioco)
 - [Struttura del progetto](#struttura-del-progetto)
@@ -41,6 +43,22 @@ dal 1° luglio 2026. I commenti nel codice citano la regola di riferimento.
 - **Italiano e inglese**, riconosciuti dal browser e intercambiabili in ogni momento.
 - **Utenti e ruoli**: accesso con nome utente e password, tre ruoli (amministratore, tagger,
   visualizzatore), gestione degli utenti dal browser.
+
+## Screenshot
+
+Le immagini usano la [partita di esempio](#partita-di-esempio) (Sudafrica – Nuova Zelanda).
+Nello schermo diviso le immagini della trasmissione sono sostituite da un campo neutro, per non
+mettere nel repository riprese coperte da copyright.
+
+**Schermo diviso**: video a sinistra, tagger a destra. Il Sudafrica è sotto 28-29 al 102° minuto
+e ha appena ottenuto una punizione: il tagger propone solo le scelte consentite dal regolamento.
+
+![Schermo diviso: video e tagger](docs/images/split-it.png)
+
+| Menu | Statistiche | Utenti |
+|---|---|---|
+| ![Menu con elenco partite, export e import](docs/images/menu-it.png) | ![Statistiche: possesso, marcature, calci ai pali con mappa, cursore temporale](docs/images/stats-it.png) | ![Gestione utenti con i ruoli](docs/images/users-it.png) |
+| Partite, export/import, versione | Possesso, marcature, mappa dei calci, cursore | Ruoli, attivazione, reimpostazione password |
 
 ## Requisiti
 
@@ -164,6 +182,32 @@ nulla e ne viene mostrato il motivo. Importare due volte lo stesso file crea due
 L'app parte in italiano se il browser preferisce l'italiano, altrimenti in inglese. Con il
 selettore **IT / EN** nel menu la cambi, e la scelta viene ricordata. Le etichette degli eventi
 vengono salvate nella lingua usata durante il tagging.
+
+## Partita di esempio
+
+[`examples/south-africa-vs-new-zealand.json`](examples/south-africa-vs-new-zealand.json) è una
+partita completa, **Sudafrica 31 – 29 Nuova Zelanda**: 336 eventi taggati con marcature, calci
+ai pali (con posizione sulla mappa), touche, mischie, punizioni con la causa, maul, palloni
+recuperati, intervallo e fine partita, collegati al video della partita su YouTube.
+
+Per provarla: accedi come tagger o amministratore, apri il menu, **Importa…** e scegli il file.
+La partita compare nell'elenco: aprila per vedere le statistiche, oppure nello schermo diviso
+per rivederla accanto al video. Le etichette degli eventi sono in inglese, la lingua in cui il
+file è stato generato.
+
+Il file è stato convertito da una partita taggata con *Rugby Tagger* (un altro tagger, che
+registra le azioni dei giocatori in stile Opta) con:
+
+```bash
+php tools/convert-rugby-tagger.php <partita-rugby-tagger.json> <uscita.json> ["Nome casa"] ["Nome ospiti"]
+```
+
+Il convertitore non copia i campi uno per uno: **pilota la macchina a stati**. Ogni evento
+rilevante della sorgente (calcio d'inizio, touche, mischia, punizione concessa, calcio, presa,
+pallone perso, maul, meta, calcio ai pali) diventa l'azione valida nello stato corrente, e i
+passaggi mancanti vengono dedotti (per esempio chi ha raccolto un calcio, dalla presa
+successiva). Ogni evento generato è quindi una mossa legale del grafo: annulla e statistiche
+funzionano. Il cronometro segue il video esattamente come nello schermo diviso.
 
 ## Utenti, ruoli e password
 
@@ -467,7 +511,9 @@ lang/en.php, lang/it.php        dizionari
 api/*.php                       endpoint JSON, uno per operazione
 pages/*.php, pages/partials/    pagine HTML (il comportamento sta in assets/js)
 assets/js/app.js                tagger;  video.js: player;  stats.js: statistiche
-tools/                          controlli e generatori da riga di comando (vedi Sviluppo)
+tools/                          controlli, generatori e convertitori da riga di comando (vedi Sviluppo)
+examples/                       partita di esempio da importare
+docs/images/                    screenshot usati dal README
 data/                           database SQLite (non versionato)
 ```
 
@@ -543,6 +589,7 @@ php tools/check-i18n.php                # ogni chiave usata esiste in ogni lingu
 php tools/graph-mermaid.php graph       # rigenera il grafo completo degli stati per questo README
 php tools/graph-mermaid.php depth it    # rigenera la tabella delle profondità (senza "it" quella inglese)
 php tools/reset-password.php <utente>   # reimpostazione d'emergenza della password (vedi Password dimenticata)
+php tools/convert-rugby-tagger.php <in.json> <out.json>  # converte una partita di Rugby Tagger (vedi Partita di esempio)
 ```
 
 Per cambiare una regola di gioco modifica [`src/States.php`](src/States.php) (il motore

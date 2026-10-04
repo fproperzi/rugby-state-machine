@@ -8,6 +8,20 @@ uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html) (see *Versioning
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-04
+
+### Added
+
+- Example match `examples/south-africa-vs-new-zealand.json` (South Africa 31 – 29 New Zealand,
+  336 events, linked to the YouTube video), ready to import from the menu.
+- `tools/convert-rugby-tagger.php`: converts a match tagged with *Rugby Tagger* into a Rugby
+  State Machine export by driving the state machine, so every event is a legal move of the graph.
+- Screenshots in both READMEs (split screen, menu, statistics, users) and an *Example match* section.
+
+### Changed
+
+- The `examples/` and `docs/` folders are not served by the web server.
+
 ## [1.0.0] - 2026-10-04
 
 First public release.
@@ -30,5 +44,6 @@ First public release.
 - Protections for Apache (`.htaccess`) and for PHP's built-in server (`router.php`).
 - README in English and Italian with Mermaid diagrams of the state graph.
 
-[Unreleased]: https://github.com/fproperzi/rugby-state-machine/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/fproperzi/rugby-state-machine/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/fproperzi/rugby-state-machine/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/fproperzi/rugby-state-machine/releases/tag/v1.0.0

@@ -11,9 +11,11 @@ The game logic follows the World Rugby *Laws of the Game*, including the amendme
 from 1 July 2026. The comments in the code cite the relevant law for each rule.
 
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Requirements](#requirements)
 - [Getting started](#getting-started)
 - [How to use it](#how-to-use-it)
+- [Example match](#example-match)
 - [Users, roles and passwords](#users-roles-and-passwords)
 - [How the game logic works](#how-the-game-logic-works)
 - [Project structure](#project-structure)
@@ -39,6 +41,21 @@ from 1 July 2026. The comments in the code cite the relevant law for each rule.
 - **Italian and English**, detected from the browser and switchable at any time.
 - **Users and roles**: sign-in required, three roles (administrator, tagger, viewer),
   user management from the browser.
+
+## Screenshots
+
+The images use the [example match](#example-match) (South Africa – New Zealand). In split screen
+the real broadcast is replaced by a plain pitch, to keep copyrighted footage out of the repository.
+
+**Split screen**: video on the left, tagger on the right. South Africa trail 28-29 in the 102nd
+minute and have just been awarded a penalty: the tagger offers only the options the laws allow.
+
+![Split screen: video and tagger](docs/images/split-en.png)
+
+| Menu | Statistics | Users |
+|---|---|---|
+| ![Menu with the match list, export and import](docs/images/menu-en.png) | ![Statistics: possession, scores, kicks at goal with kick map, time scrubber](docs/images/stats-en.png) | ![User management with roles](docs/images/users-en.png) |
+| Matches, export/import, version | Possession, scores, kick map, scrubber | Roles, activation, password reset |
 
 ## Requirements
 
@@ -154,6 +171,31 @@ reason is shown. Importing the same file twice creates two copies.
 The app starts in Italian if your browser prefers Italian, otherwise in English.
 Use the **IT / EN** switch in the menu to change it; the choice is remembered.
 Event labels are stored in the language used while tagging.
+
+## Example match
+
+[`examples/south-africa-vs-new-zealand.json`](examples/south-africa-vs-new-zealand.json) is a
+complete match, **South Africa 31 – 29 New Zealand**: 336 tagged events with scores, kicks at
+goal (with kick map positions), lineouts, scrums, penalties with their cause, mauls, turnovers,
+half-time and full-time, tied to the match video on YouTube.
+
+To try it: sign in as a tagger or administrator, open the menu, **Import…** and choose the file.
+The match appears in the list: open it to see the statistics, or in split screen to replay it
+next to the video.
+
+The file was converted from a match tagged with *Rugby Tagger* (a different tagger, which logs
+Opta-style player actions) by:
+
+```bash
+php tools/convert-rugby-tagger.php <rugby-tagger-match.json> <output.json> ["Home name"] ["Away name"]
+```
+
+The converter does not copy fields one by one: it **drives the state machine**. Every relevant
+source event (restart, lineout, scrum, penalty conceded, kick, catch, turnover, maul, try, goal
+kick) becomes the action that is valid in the current state, and missing steps are inferred
+(for example who caught a kick, from the next catch). Every generated event is therefore a legal
+move of the graph, so undo and statistics work. The clock follows the video exactly as in split
+screen.
 
 ## Users, roles and passwords
 
@@ -451,7 +493,9 @@ lang/en.php, lang/it.php        dictionaries
 api/*.php                       JSON endpoints, one per operation
 pages/*.php, pages/partials/    HTML pages (the behaviour is in assets/js)
 assets/js/app.js                tagger;  video.js: player;  stats.js: statistics
-tools/                          command-line checks and generators (see Development)
+tools/                          command-line checks, generators and converters (see Development)
+examples/                       example match to import
+docs/images/                    screenshots used by the README
 data/                           SQLite database (not versioned)
 ```
 
@@ -526,6 +570,7 @@ php tools/check-i18n.php            # every key used exists in every language; e
 php tools/graph-mermaid.php graph   # regenerate the full state graph for this README
 php tools/graph-mermaid.php depth   # regenerate the depth table (add "it" for the Italian one)
 php tools/reset-password.php <user> # emergency password reset (see Forgotten password)
+php tools/convert-rugby-tagger.php <in.json> <out.json>  # convert a Rugby Tagger match (see Example match)
 ```
 
 To change a rule of the game, edit [`src/States.php`](src/States.php) (the engine rarely needs

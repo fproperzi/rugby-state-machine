@@ -41,11 +41,11 @@ ServerSignature Off
 </FilesMatch>
 
 # ---------- Cartelle interne ----------
-# Bloccate anche dai loro .htaccess (data/, src/, pages/, lang/, tools/): doppia protezione
+# Bloccate anche dai loro .htaccess (data/, src/, pages/, lang/, tools/, examples/, docs/): doppia protezione
 # nel caso mod_rewrite non sia attivo.
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^(data|src|pages|lang|tools|\.git)(/|$) - [F,L]
+    RewriteRule ^(data|src|pages|lang|tools|examples|docs|\.git)(/|$) - [F,L]
 </IfModule>
 
 # ---------- Header di sicurezza ----------

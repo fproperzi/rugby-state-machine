@@ -136,6 +136,16 @@ marcature, mauls, turnover, knock-on, kick-off recuperati, mappa dei calci)
 - Recupero dell'unico admin: `php tools/reset-password.php <utente>` (solo CLI).
 - Configurazione in `config.php` (`SESSION_*`, `PASSWORD_MIN_LENGTH`, `LOGIN_*`).
 
+## Partita di esempio e convertitore
+
+- `examples/south-africa-vs-new-zealand.json`: partita reale (31-29) da importare dal menu,
+  generata da `tools/convert-rugby-tagger.php` a partire da un file dell'altro progetto
+  dell'utente ("Rugby Tagger", eventi stile Opta). Il convertitore pilota `StateMachine`
+  (ogni evento è un'azione legale nello stato corrente): se cambia il grafo, rigenerare
+  l'esempio e verificare che l'import passi.
+- `docs/images/*-en.png|*-it.png`: screenshot dei README fatti con quella partita. Nello split
+  il video vero è sostituito da un campo neutro (niente immagini della trasmissione: copyright).
+
 ## Export / import partite
 
 Dal menu si spuntano una o più partite → `api/export.php?ids=…` scarica un JSON
