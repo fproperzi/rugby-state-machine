@@ -7,7 +7,7 @@ namespace Rugby;
  * storico eventi, che e' la fonte di verita' per punteggio, statistiche e undo.
  *
  * Formato:
- *   { "format": "rugby-tagger-matches", "version": 1, "exported_at": "...",
+ *   { "format": "rugby-state-machine-matches", "version": 1, "exported_at": "...",
  *     "matches": [ { "match": {...campi MATCH_FIELDS}, "events": [ {...campi EVENT_FIELDS}, ... ] } ] }
  *
  * Gli id non vengono esportati: all'import ogni partita riceve un id nuovo, quindi importare
@@ -15,7 +15,9 @@ namespace Rugby;
  */
 class MatchArchive
 {
-    public const FORMAT = 'rugby-tagger-matches';
+    public const FORMAT = 'rugby-state-machine-matches';
+    /** Identificativi di formato precedenti, ancora importabili (il progetto si chiamava "Rugby Tagger"). */
+    private const LEGACY_FORMATS = ['rugby-tagger-matches'];
     public const VERSION = 1;
 
     private const MATCH_FIELDS = [
@@ -82,6 +84,8 @@ class MatchArchive
         return [
             'format' => self::FORMAT,
             'version' => self::VERSION,
+            // Solo informativo (quale versione dell'app ha prodotto il file): l'import guarda 'version'.
+            'app_version' => APP_VERSION,
             'exported_at' => gmdate('Y-m-d H:i:s'),
             'matches' => $entries,
         ];
@@ -98,7 +102,7 @@ class MatchArchive
      */
     public function import(array $archive, int $importedBy): array
     {
-        if (($archive['format'] ?? null) !== self::FORMAT) {
+        if (!in_array($archive['format'] ?? null, [self::FORMAT, ...self::LEGACY_FORMATS], true)) {
             throw new \InvalidArgumentException(__('err.import_not_rugby'));
         }
 

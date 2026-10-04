@@ -1,5 +1,5 @@
 @echo off
-REM Avvia il server PHP built-in per Rugby Tagger e apre il browser sul menu.
+REM Avvia il server PHP built-in per Rugby State Machine e apre il browser sul menu.
 REM router.php applica le stesse protezioni di .htaccess (il server integrato non lo legge).
 REM Il server resta in ascolto solo su localhost: chiudere la finestra (o Ctrl+C) per fermarlo.
 
@@ -24,7 +24,7 @@ if not errorlevel 1 (
     exit /b 1
 )
 
-echo Rugby Tagger su http://localhost:%PORT%  ^(Ctrl+C per fermare^)
+echo Rugby State Machine su http://localhost:%PORT%  ^(Ctrl+C per fermare^)
 start "" "http://localhost:%PORT%/"
 php -S localhost:%PORT% router.php
 

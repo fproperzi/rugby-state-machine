@@ -94,7 +94,7 @@ return [
     'err.invalid_action' => "Action '{action}' is not valid in state '{state}'",
     'err.no_match_selected' => 'No match selected',
     'err.import_empty' => 'Empty file or not JSON',
-    'err.import_not_rugby' => 'This file is not a Rugby Tagger export',
+    'err.import_not_rugby' => 'This file is not a Rugby State Machine export',
     'err.import_version' => 'Unsupported file version: {version}',
     'err.import_no_matches' => 'The file contains no matches',
     'err.import_where_match' => 'Match #{n}',

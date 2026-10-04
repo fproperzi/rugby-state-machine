@@ -1,4 +1,4 @@
-# 🏉 Rugby Tagger
+# 🏉 Rugby State Machine
 
 [English](README.md) · **Italiano**
 
@@ -18,6 +18,7 @@ dal 1° luglio 2026. I commenti nel codice citano la regola di riferimento.
 - [Come funziona la logica di gioco](#come-funziona-la-logica-di-gioco)
 - [Struttura del progetto](#struttura-del-progetto)
 - [Sicurezza](#sicurezza)
+- [Versioni](#versioni)
 - [Sviluppo](#sviluppo)
 - [Licenza](#licenza)
 
@@ -461,6 +462,7 @@ src/I18n.php                    rilevamento della lingua e traduzioni
 src/Auth.php                    sessioni, accesso, controllo dei permessi di pagine e API
 src/UserRepository.php          utenti, hash delle password, tentativi di accesso falliti
 src/Role.php                    ruoli: amministratore > tagger > visualizzatore
+CHANGELOG.md                    modifiche di ogni versione
 lang/en.php, lang/it.php        dizionari
 api/*.php                       endpoint JSON, uno per operazione
 pages/*.php, pages/partials/    pagine HTML (il comportamento sta in assets/js)
@@ -485,6 +487,55 @@ Vengono serviti solo `index.php`, `api/*.php` e `assets/*`:
 - Il file video locale viene letto solo dal percorso salvato per la partita: l'endpoint non
   legge mai un percorso che arriva dalla richiesta.
 
+## Versioni
+
+Il progetto segue il [Semantic Versioning](https://semver.org/lang/it/): `MAJOR.MINOR.PATCH`.
+
+- La versione corrente è la costante `APP_VERSION` in [`config.php`](config.php) (l'unico punto
+  in cui il numero è scritto) e compare in fondo al menu.
+- Ogni rilascio è un tag git `vMAJOR.MINOR.PATCH` (es. `v1.0.0`), elencato nelle
+  [Releases](https://github.com/fproperzi/rugby_state_machine/releases).
+- Cosa cambia in ogni versione è in [`CHANGELOG.md`](CHANGELOG.md) (in inglese, come d'uso su GitHub).
+- I file di export hanno una propria versione di formato (`version`, verificata all'import) e,
+  a titolo informativo, la `app_version` che li ha prodotti.
+
+### Cosa è major, minor, patch
+
+| Modifica | Versione |
+|---|---|
+| Correzione di un bug, traduzione, testi, grafica; correzione di una regola che non rinomina né toglie stati o azioni | **PATCH** (1.0.**1**) |
+| Nuova funzionalità che lascia funzionare i dati esistenti: nuovi stati o azioni nel grafo, nuove pagine, nuove statistiche, nuove colonne/tabelle aggiunte da sole ai database esistenti | **MINOR** (1.**1**.0) |
+| Una modifica che rompe dati o file esistenti: rinominare o togliere l'id di uno stato o di un'azione (gli eventi vecchi non si potrebbero più annullare, gli export vecchi non si importerebbero più), un formato di export che non legge i file vecchi, una modifica del database che richiede una migrazione manuale | **MAJOR** (**2**.0.0) |
+
+### Rilasciare una nuova versione
+
+1. In [`CHANGELOG.md`](CHANGELOG.md) sposta le voci di *Unreleased* sotto un nuovo titolo
+   `## [X.Y.Z] - AAAA-MM-GG` e aggiorna i link di confronto in fondo al file.
+2. Imposta `APP_VERSION` in [`config.php`](config.php) a `X.Y.Z`.
+3. Lancia i controlli (e rigenera i diagrammi se il grafo è cambiato, vedi [Sviluppo](#sviluppo)):
+
+   ```bash
+   for f in *.php api/*.php src/*.php pages/*.php pages/partials/*.php lang/*.php tools/*.php; do php -l "$f"; done
+   php tools/check-i18n.php
+   ```
+
+4. Commit, tag e push:
+
+   ```bash
+   git commit -am "Release vX.Y.Z"
+   git tag -a vX.Y.Z -m "vX.Y.Z"
+   git push origin main --follow-tags
+   ```
+
+5. Se vuoi, crea su GitHub una Release dal tag, incollando la sezione del changelog.
+
+### Aggiornare un'installazione
+
+1. **Fai una copia di `data/rugby.sqlite`** (contiene partite e utenti).
+2. Sostituisci i file dell'applicazione con la nuova versione, lasciando la cartella `data/`.
+3. Apri l'app: nuove tabelle e colonne vengono aggiunte da sole al database esistente alla prima
+   richiesta. Una versione **MAJOR** elenca in [`CHANGELOG.md`](CHANGELOG.md) gli eventuali passi manuali.
+
 ## Sviluppo
 
 ```bash
@@ -500,7 +551,7 @@ nuove etichette, poi lancia i due strumenti qui sopra.
 
 ## Licenza
 
-Copyright (C) 2026 gli autori di Rugby Tagger.
+Copyright (C) 2026 gli autori di Rugby State Machine.
 
 Questo programma è software libero: puoi ridistribuirlo e/o modificarlo secondo i termini
 della GNU General Public License pubblicata dalla Free Software Foundation, nella versione 3

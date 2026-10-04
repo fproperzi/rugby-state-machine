@@ -1,4 +1,4 @@
-# Rugby Tagger — CLAUDE.md di progetto
+# Rugby State Machine — CLAUDE.md di progetto
 
 Questo file aggiunge dettagli specifici del progetto alle direttive globali
 (`~/.claude/CLAUDE.md`) e ha la precedenza in caso di conflitto.

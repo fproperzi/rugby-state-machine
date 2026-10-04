@@ -1,4 +1,4 @@
-# 🏉 Rugby Tagger
+# 🏉 Rugby State Machine
 
 **English** · [Italiano](README.it.md)
 
@@ -18,6 +18,7 @@ from 1 July 2026. The comments in the code cite the relevant law for each rule.
 - [How the game logic works](#how-the-game-logic-works)
 - [Project structure](#project-structure)
 - [Security](#security)
+- [Versioning](#versioning)
 - [Development](#development)
 - [License](#license)
 
@@ -445,6 +446,7 @@ src/I18n.php                    language detection and translations
 src/Auth.php                    sessions, sign-in, permission checks for pages and APIs
 src/UserRepository.php          users, password hashing, sign-in failures
 src/Role.php                    roles: administrator > tagger > viewer
+CHANGELOG.md                    changes of every version
 lang/en.php, lang/it.php        dictionaries
 api/*.php                       JSON endpoints, one per operation
 pages/*.php, pages/partials/    HTML pages (the behaviour is in assets/js)
@@ -468,6 +470,55 @@ Only `index.php`, `api/*.php` and `assets/*` are served:
 - The local video file is streamed only from the path saved for the match: the endpoint
   never reads a path coming from the request.
 
+## Versioning
+
+The project follows [Semantic Versioning](https://semver.org): `MAJOR.MINOR.PATCH`.
+
+- The current version is the `APP_VERSION` constant in [`config.php`](config.php) (the only place
+  where the number is written) and is shown at the bottom of the menu.
+- Every release is a git tag `vMAJOR.MINOR.PATCH` (e.g. `v1.0.0`), listed under
+  [Releases](https://github.com/fproperzi/rugby_state_machine/releases).
+- What changed in each version is in [`CHANGELOG.md`](CHANGELOG.md).
+- Export files carry their own format version (`version`, checked on import) and, for
+  information, the `app_version` that produced them.
+
+### What counts as major, minor, patch
+
+| Change | Version |
+|---|---|
+| Bug fix, translation, wording, layout fix; a rule correction that does not rename or remove states/actions | **PATCH** (1.0.**1**) |
+| New feature that keeps existing data working: new states or actions in the graph, new pages, new statistics, new columns/tables added automatically to existing databases | **MINOR** (1.**1**.0) |
+| A change that breaks existing data or files: renaming or removing a state or action id (old events could no longer be undone, old exports no longer imported), an export format that cannot read old files, a database change that needs manual migration | **MAJOR** (**2**.0.0) |
+
+### Releasing a new version
+
+1. In [`CHANGELOG.md`](CHANGELOG.md) move the entries of *Unreleased* under a new heading
+   `## [X.Y.Z] - YYYY-MM-DD` and update the comparison links at the bottom.
+2. Set `APP_VERSION` in [`config.php`](config.php) to `X.Y.Z`.
+3. Run the checks (and regenerate the diagrams if the graph changed, see [Development](#development)):
+
+   ```bash
+   for f in *.php api/*.php src/*.php pages/*.php pages/partials/*.php lang/*.php tools/*.php; do php -l "$f"; done
+   php tools/check-i18n.php
+   ```
+
+4. Commit, tag and push:
+
+   ```bash
+   git commit -am "Release vX.Y.Z"
+   git tag -a vX.Y.Z -m "vX.Y.Z"
+   git push origin main --follow-tags
+   ```
+
+5. Optionally create a GitHub Release from the tag, pasting the changelog section.
+
+### Updating an installation
+
+1. **Back up `data/rugby.sqlite`** (it holds matches and users).
+2. Replace the application files with the new version, keeping the `data/` folder.
+3. Open the app: new tables and columns are added to the existing database automatically at the
+   first request. A **MAJOR** version lists any manual step in [`CHANGELOG.md`](CHANGELOG.md).
+
 ## Development
 
 ```bash
@@ -483,7 +534,7 @@ run the two tools above.
 
 ## License
 
-Copyright (C) 2026 the Rugby Tagger authors.
+Copyright (C) 2026 the Rugby State Machine authors.
 
 This program is free software: you can redistribute it and/or modify it under the terms of
 the GNU General Public License as published by the Free Software Foundation, either

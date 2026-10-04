@@ -1,4 +1,4 @@
-# Rugby Tagger — protezioni per Apache 2.4 (con fallback per 2.2).
+# Rugby State Machine — protezioni per Apache 2.4 (con fallback per 2.2).
 # Pubblici devono restare solo: index.php, api/*.php, assets/*.
 # Le stesse regole valgono per il server PHP integrato tramite router.php.
 

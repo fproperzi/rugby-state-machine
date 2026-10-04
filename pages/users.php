@@ -7,7 +7,7 @@ use Rugby\Role;
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php _e('page.users'); ?> — Rugby Tagger</title>
+    <title><?php _e('page.users'); ?> — Rugby State Machine</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

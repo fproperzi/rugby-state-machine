@@ -9,6 +9,7 @@ data/*.sqlite-wal
 data/*.sqlite-shm
 
 # Esportazioni di partite scaricate nella cartella del progetto
+rugby-state-machine-*.json
 rugby-tagger-*.json
 
 # Appunti personali

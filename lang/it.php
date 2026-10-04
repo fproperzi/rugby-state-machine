@@ -94,7 +94,7 @@ return [
     'err.invalid_action' => "Azione '{action}' non valida per lo stato '{state}'",
     'err.no_match_selected' => 'Nessuna partita selezionata',
     'err.import_empty' => 'File vuoto o non in formato JSON',
-    'err.import_not_rugby' => 'Il file non è un export di Rugby Tagger',
+    'err.import_not_rugby' => 'Il file non è un export di Rugby State Machine',
     'err.import_version' => 'Versione del file non supportata: {version}',
     'err.import_no_matches' => 'Il file non contiene partite',
     'err.import_where_match' => 'Partita #{n}',

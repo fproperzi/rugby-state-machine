@@ -697,3 +697,5 @@ a { color: inherit; }
 .user-row .user-actions { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
 .user-row .user-reset { grid-column: 1 / -1; display: flex; gap: 6px; }
 .user-row .user-reset[hidden] { display: none; }
+
+.app-version { text-align: center; font-size: 12px; color: var(--text-dim); padding: 8px 0 4px; }

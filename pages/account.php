@@ -9,7 +9,7 @@ $user = Auth::user();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php _e('page.account'); ?> — Rugby Tagger</title>
+    <title><?php _e('page.account'); ?> — Rugby State Machine</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

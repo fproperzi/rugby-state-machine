@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <title><?php _e('page.login'); ?> — Rugby Tagger</title>
+    <title><?php _e('page.login'); ?> — Rugby State Machine</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="screen menu-screen">
     <?php require __DIR__ . '/partials/lang-switch.php'; ?>
-    <div class="menu-title">🏉 Rugby Tagger</div>
+    <div class="menu-title">🏉 Rugby State Machine</div>
     <div class="menu-sub"><?php _e('page.login'); ?></div>
 
     <form class="auth-form" id="login-form">

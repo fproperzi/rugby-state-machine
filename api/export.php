@@ -24,7 +24,7 @@ try {
     Http::errorResponse($e->getMessage(), 404);
 }
 
-$filename = sprintf('rugby-tagger-%d-partite-%s.json', count($ids), gmdate('Ymd-His'));
+$filename = sprintf('rugby-state-machine-%d-matches-%s.json', count($ids), gmdate('Ymd-His'));
 header('Content-Disposition: attachment; filename="' . $filename . '"');
 
 Http::jsonResponse($archive);

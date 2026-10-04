@@ -14,13 +14,13 @@ $canTag = Auth::user()['role']->allows(Role::Tagger);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rugby Tagger</title>
+    <title>Rugby State Machine</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="screen menu-screen">
     <?php require __DIR__ . '/partials/user-bar.php'; ?>
-    <div class="menu-title">🏉 Rugby Tagger</div>
+    <div class="menu-title">🏉 Rugby State Machine</div>
     <div class="menu-sub"><?php _e('l.app_tagline'); ?></div>
 
     <?php if ($canTag): ?>
@@ -72,6 +72,8 @@ $canTag = Auth::user()['role']->allows(Role::Tagger);
             <?php endforeach; ?>
         </div>
     </div>
+
+    <footer class="app-version">Rugby State Machine v<?= htmlspecialchars(APP_VERSION) ?> · GPL-3.0-or-later</footer>
 </div>
 
 <?php require __DIR__ . '/partials/common-scripts.php'; ?>

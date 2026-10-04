@@ -5,6 +5,10 @@
  */
 
 define('APP_ROOT', __DIR__);
+
+// Versione dell'app (Semantic Versioning: MAJOR.MINOR.PATCH). Unica fonte del numero di versione:
+// la procedura di rilascio e' descritta nel README, le modifiche di ogni versione in CHANGELOG.md.
+define('APP_VERSION', '1.0.0');
 define('DB_PATH', APP_ROOT . '/data/rugby.sqlite');
 define('SCHEMA_PATH', APP_ROOT . '/schema.sql');
 
