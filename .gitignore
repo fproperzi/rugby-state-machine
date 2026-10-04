@@ -1,0 +1,25 @@
+# Materiale di riferimento (foto dell'app originale): resta solo in locale
+IMG_*.jpg
+Photos.zip
+
+# Database runtime con i dati delle partite (la cartella data/ resta, con il suo .htaccess)
+data/*.sqlite
+data/*.sqlite-journal
+data/*.sqlite-wal
+data/*.sqlite-shm
+
+# Esportazioni di partite scaricate nella cartella del progetto
+rugby-tagger-*.json
+
+# Appunti personali
+src/__to-do.txt
+
+# Impostazioni locali personali di Claude Code
+.claude/settings.local.json
+
+# Editor e sistema operativo
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,9 @@
+# Fine riga normalizzati nel repository: LF ovunque, CRLF solo per gli script batch di Windows.
+* text=auto eol=lf
+*.bat text eol=crlf
+
+# Binari
+*.jpg binary
+*.png binary
+*.zip binary
+*.sqlite binary

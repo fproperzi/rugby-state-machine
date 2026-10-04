@@ -1,0 +1,68 @@
+# Rugby Tagger — protezioni per Apache 2.4 (con fallback per 2.2).
+# Pubblici devono restare solo: index.php, api/*.php, assets/*.
+# Le stesse regole valgono per il server PHP integrato tramite router.php.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+ServerSignature Off
+
+# ---------- File nascosti (.git, .htaccess, .env, ...) ----------
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ---------- Estensioni che non devono mai essere servite ----------
+# DB, schema, configurazioni, log, backup, documentazione, script, archivi.
+<FilesMatch "\.(sqlite|sqlite3|sqlite-journal|sqlite-wal|sqlite-shm|db|sql|ini|log|bak|old|orig|swp|md|txt|bat|cmd|sh|zip|json|lock|dist)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ---------- File PHP interni nella root ----------
+<FilesMatch "^(config|bootstrap|router)\.php$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ---------- Cartelle interne ----------
+# Bloccate anche dai loro .htaccess (data/, src/, pages/, lang/, tools/): doppia protezione
+# nel caso mod_rewrite non sia attivo.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(data|src|pages|lang|tools|\.git)(/|$) - [F,L]
+</IfModule>
+
+# ---------- Header di sicurezza ----------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "same-origin"
+    Header unset X-Powered-By
+</IfModule>
+
+# ---------- PHP (solo se eseguito come modulo Apache) ----------
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_flag expose_php Off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+</IfModule>
